@@ -1,6 +1,5 @@
 # Linked Lists exercises (from Cracking The Coding Interview)
 
-# 2.1  Remove Dups:  Write code to remove duplicates from an unsorted linked list
 class Node(object):
     def __init__(self, data):
         self.data = data
@@ -40,6 +39,7 @@ class LinkedList(object):
 	                prev.next = curr.next
 	                break
 
+    # 2.1  Remove Dups:  Write code to remove duplicates from an unsorted linked list
     # Time complexity of O(n)
     def remove_dups(self):
     	curr = self.head
@@ -57,44 +57,34 @@ class LinkedList(object):
 
     # Time complexity of Quadric, O(n**2)
     # Space complexity of O(1)
-    # def remove_dups_no_array_old(self):
-    # 	curr = self.head
-    # 	prevSecond = None
-
-    # 	while curr != None:
-    #         second = curr.next
-
-    #         while second != None:
-    #         	print "curr: " + str(curr.data) + " | " + " second: " + str(second.data)
-    #         	if curr.data == second.data:
-    #                 print "match"
-    #                 prevSecond.next = second.next
-    #         	else:
-    #         		prevSecond = second
-
-    #         	second = second.next
-            
-    #         curr = curr.next
-
     def remove_dups_no_array(self):
     	curr = self.head
+    	
     	while curr != None:
-            second = curr
-            while second.next != None:
-            	if curr.data == second.next.data:
-            		second.next = second.next.next
+            second = curr.next
+            prev = curr
+            while second != None:
+            	if curr.data == second.data:
+                    prev.next = second.next
             	else:
-            		second = second.next
+            		prev = second
 
+            	second = second.next
+            
             curr = curr.next
 
-	                
+    # 2.3 Delete middle node:  Can only access the node element
+    def delete_from_mid(self, node):
+    	if node != None and node.next != None:
+            node.data = node.next.data
+            node.next = node.next.next
+
 node1  = Node(1)
-node4  = Node(3)
-node2  = Node(2)
+node4  = Node(4)
+node2  = Node(3)
 node3  = Node(3)
 node4b = Node(4)
-node3b = Node(5)
+node6 = Node(6)
 node5 = Node(5)
 
 my_list = LinkedList()
@@ -103,14 +93,12 @@ my_list.insert(node4)
 my_list.insert(node2)
 my_list.insert(node3)
 my_list.insert(node4b)
-my_list.insert(node3b)
+my_list.insert(node6)
 my_list.insert(node5)
 
 # my_list.remove(node1)
-
-print "Before:"
-my_list.display()
 # my_list.remove_dups()
-my_list.remove_dups_no_array()
-print "After:"
-my_list.display()
+# my_list.remove_dups_no_array()
+
+my_list.delete_from_mid(node6)
+
